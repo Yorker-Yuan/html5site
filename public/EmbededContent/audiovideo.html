@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Audio Video Tag</title>
+    <style>
+        .v {
+            margin: 5px;
+            box-shadow: 3px 2px 4px silver;
+        }
+    </style>
+</head>
+
+<body>
+    <audio src="./musics/K歌之王.mp3" autoplay muted loop controls></audio>
+    <video controls autoplay loop>
+        <source src="./videos/big_buck_bunny.ogv">
+    </video>
+    <video src="./videos/big_buck_bunny.mp4" autoplay controls width="480" height="360" poster="../images/cars2.jpg"
+        id="video1">
+        <track kind="subtitles" src="./videos/bunny_en.vtt" srclang="en" label="English" default></track>
+        <track kind="subtitles" src="./videos/bunny_zhtw.vtt" srclang="zh-tw" label="繁中"></track>
+    </video>
+
+</body>
+
+</html>

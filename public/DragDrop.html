@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drag And Drop</title>
+    <style>
+      .zone{
+          width:600px;
+          height:150px;
+          border:1px solid green;
+          margin:10px;
+      }
+      .item{
+          width:100px;
+          height:50px;
+          background-color:darkgreen;
+          margin:5px;
+          float: left;
+          text-align: center;
+          vertical-align: middle;
+          line-height: 50px;
+          color:white;
+          border-radius: 10px;
+
+      }
+      .over{
+          border:2px dotted red;
+      }
+    </style>
+</head>
+<body>
+    <div class="zone">
+        <div id="item1" class="item">Item1</div>
+        <div id="item2" class="item">Item2</div>        
+        <div id="item3" class="item">Item3</div>
+    </div>
+    <div class="zone"></div>
+ 
+    <script>
+        var items = document.querySelectorAll('.item'); 
+        var zones = document.querySelectorAll('.zone');
+
+       
+    </script>
+</body>
+</html>
