@@ -50,12 +50,15 @@
         <form>
             <div>
                 <label for="account" class="title">帳號</label>
-                <input type="text" id="account" name="account" autofocus autocomplete="off" required/>
-                <!-- 1.網頁載入時將游標停駐在帳號的文字輸入方塊中 2.取消瀏覽器會自動記錄輸入資料的功能 3.請確定帳號一定要輸入-->
+                <input type="text" id="account" name="account" autofocus autocomplete="off" required />
+                <!-- 
+                    1.網頁載入時將游標停駐在帳號的文字輸入方塊中 
+                    2.取消瀏覽器會自動記錄輸入資料的功能 
+                    3.請確定帳號一定要輸入-->
             </div>
             <div>
                 <label for="pwd1" class="title">密碼</label>
-                <input type="password" id="pwd1" name="pwd1" /><span id="msg"></span>
+                <input type="text" id="pwd1" name="pwd1" pattern="^.*(?=.{10,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$" />
             </div>
             <div>
                 <label for="pwd2" class="title">密碼確認</label>
@@ -64,7 +67,10 @@
             <div>
                 <label for="email" class="title">電子郵件</label>
                 <input type="email" id="email" name="email" />
-                <!--1.請填入正確type的屬性值. 2.確定符合正確的電子郵件格式-->
+                <!--
+                    1.請填入正確type的屬性值. 
+                    2.確定符合正確的電子郵件格式
+                -->
             </div>
             <div>
                 <label for="blog" class="title">部落格</label>
@@ -73,13 +79,15 @@
             </div>
             <div>
                 <label for="phone" class="title">連絡電話</label>
-                <input type="tel" id="phone" name="phone"  pattern="09\d{2}-\d{3}-\d{3}"/>
-                <!--1.請填入正確的type. 2.提示使用者輸入正確的手機格式(0911-111-111) 
+                <input type="tel" id="phone" name="phone" placeholder="0911-111-111" pattern="09\d{2}-\d{3}-\d{3}"  />
+                <!--
+                    1.請填入正確的type. 
+                    2.提示使用者輸入正確的手機格式(0911-111-111) 
                     3.確定手機格式正確(09\d{2}-\d{3}-\d{3})-->
             </div>
             <div>
                 <label for="age" class="title">年紀</label>
-                <input type="number" id="age" name="age" min="10" max="100" value="20"/><br />
+                <input type="number" id="age" name="age" max="100" min="10" value="20" /><br />
                 <!--1.請填入正確的type. 2.最小值10 3.最大值100 4.預設值20-->
             </div>
             <div class="submit">
@@ -90,21 +98,33 @@
     </fieldset>
 
     <script>
+        // var p1 = document.querySelector('#pwd1');
+        // var p2 = document.querySelector('#pwd2');
+        // p2.addEventListener("blur",function(){
+        //     if(this.value === p1.value){
+        //         p2.setCustomValidity("")
+        //     }else{
+        //         p2.setCustomValidity("密碼不一致")
+        //     }
+        // })
+        var inputs = document.querySelectorAll('input');
+        for(var i=0,max=inputs.length;i<max;i++){
+            inputs[i].addEventListener('blur',validate);
+        }
 
-        var p1 = document.querySelector("#pwd1");
-        var p2 = document.querySelector("#pwd2");
-        var msg = document.querySelector("#msg");
-        p2.addEventListener("blur",function(){
-            if(p1.val() != p2.val()){
-                alert("密碼不一致");
-                // msg.innerHTML("<p style='color:red;'>密碼不一致</p>");
-            }else
-            {
-                alert("密碼正確");
-                msg.innerHTML("<p style='color:green;'>密碼正確</p>");
+        function validate(){
+            var s = this.validity;
+            var msg = "";
+            switch(true){
+                case s.valueMissing:
+                    msg = "必填欄位"
+                    break
+                case s.patternMismatch:
+                    msg = "格式不正確"
+                    break
             }
-        });
-       
+            this.setCustomValidity(msg)
+        }
     </script>
 </body>
 

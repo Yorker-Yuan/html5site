@@ -5,6 +5,7 @@
   { name: "好就不見", url: "好久不見.mp3" },
   { name: "我們都寂寞", url: "我們都寂寞.mp3" }];
 var index = 0;
+
 //like & shuffle button
 $('.heart').click(function () {
   $(this).toggleClass('clicked');
@@ -12,9 +13,6 @@ $('.heart').click(function () {
 
 $('.shuffle').click(function () {
   $(this).toggleClass('clicked');
-
-  var i = Math.floor(Math.random()*musics.length);  //取得隨機序
-  playsong(i);
 });
 
 //show info box on hover
@@ -36,30 +34,13 @@ $('.pause').hide(); //hide pause button until clicked
 
 //play button
 $('.play').click(function () {
-  playsong(0);
   $('.play').hide();
   $('.pause').show();
 });
 
 //pause button
 $('.pause').click(function () {  
-  audio.pause();
   $('.play').show();
   $('.pause').hide();
 });
 
-function playsong(i){
-  index = i;
-  var playFile = musics[i];
-  audio.attributes("src","../music/"+playFile.url);
-  audio.play();
-  $("#song-name").text(playFile.name);
-}
-
-bar.click(function(e){
-  let s = audio.duration*(e.offsetX/fillTotal);
-  audio.currentTime = s;
-});
-
-audio.addEventListener("ended",next,false);
- 

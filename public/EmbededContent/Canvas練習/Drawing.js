@@ -4,6 +4,7 @@ var flag = false;
 
 //開始畫圖
 canvas.addEventListener("mousedown", function (event) {
+    // console.log(event);
     flag = true;
     //console.log(event);
     //to do 開始一個新路徑，產生後再使用繪圖指令來設定路徑。
@@ -19,8 +20,8 @@ canvas.addEventListener("mousedown", function (event) {
     //讀取使用者設定線條的寬度
     var w = document.querySelector("#number1").value;
 
-    //to do 設定線條顏色   
-    context.strokeStyle = color;
+    //to do 設定線條顏色 
+    context.strokeStyle = color;  
 
     //to do 設定線條寬度
     context.lineWidth = w;
@@ -35,9 +36,9 @@ canvas.addEventListener("mousemove", function (event) {
         //to do 從目前繪圖點畫一條直線到滑鼠點選的位置上
         //使用event.offsetX 取得滑鼠的x軸座標點
         //使用event.offsetY 取得滑鼠的y軸座標點
-        //console.log(event.offsetX + "," + event.offsetY);
-        context.lineTo(event.offsetX,event.offsetY);
+        // console.log(event.offsetX + "," + event.offsetY);
         //to do 畫出圖形的線條
+        context.lineTo(event.offsetX,event.offsetY);
         context.stroke();
     }
 }, false);
@@ -59,6 +60,7 @@ document.querySelector("#text1").addEventListener("blur", function () {
     //to do 請將輸入在text1裡面的文字寫到canvas中
     //使用this.value 讀出text1裡面的文字
     context.fillText(this.value,x,y);
+
 }, false);
 
 document.querySelector("#file1").addEventListener("change", function () {
@@ -70,14 +72,14 @@ document.querySelector("#file1").addEventListener("change", function () {
             var y = Math.floor(Math.random() * canvas.height); //設定繪製圖型位置的y座標
 
             //to do 將選取的圖,放大縮小後繪到canvas中
-            context.drawImage(imageObj, x, y, w, w);
+            context.drawImage(imageObj,x,y,w,w)
         }
     }
 
     //這是錯誤的寫法
     imageObj.src = this.files[0].name;  //會到Server端去下載圖片
-
-    //要改用FileReader物件去讀取使用者選到子自己電腦中的圖
+    // console.log(this.files[0].name);
+    //要改用FileReader物件去讀取使用者選到自己電腦中的圖
 }, false);
 
 //儲存

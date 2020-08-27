@@ -1,51 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Canvas Demo</title>
     <style>
-        #myCanvas {
-            border: 1px solid green
+        #myCanvas{
+          border:1px solid green;
         }
     </style>
 </head>
-
 <body>
-    <canvas id="myCanvas"></canvas>
+   <canvas id="myCanvas" width="400px" height="300px"></canvas>
 
     <script>
-        var canvas = document.querySelector("#myCanvas");
-        var context = canvas.getContext("2d");
+        var canvas = document.querySelector('#myCanvas');
+        var context = canvas.getContext('2d');
 
-        // 陰影
-        // context.shadowOffsetX = 5;
-        // context.shadowOffsetY = 5;
-        // context.shadowBlur = 4;
-        // context.shadowColor = "rgba(0,0,0,.5)";
-
-        // 顏色
-        // context.fillStyle = "#ff0000";
-        // context.strokeStyle = "#0000ff";
-        // 1. 設定陰影 2.設定顏色 3.設定線條
-        // context.strokeRect(50, 30, 200, 90);
-        // context.fillRect(50, 30, 200, 90);
-    //   context.strokeRect(0,60,150,50);
-
-        context.begibPath();
-        context.moveTo(100,150);
-        context.lineTo(250,75);
-        context.closePath();
-
-        context.lineWidth = 5;
+        //畫圖
+        //顏色設定
+        context.fillStyle = "green";
         context.strokeStyle = "red";
-        context.stroke();
 
-        context.fillStyle="green";
-        context.fill();
+       // context.lineWidth=5;
+
+        //陰影
+        // context.shadowOffsetX = 5;
+        // context.shadowOffsetY = 3;
+        // context.shadowBlur = 4;
+        // context.shadowColor = "silver";
+
+        //矩形        
+        // context.strokeRect(50,30,200,90);
+        //  context.fillRect(50,30,200,90);
+       // context.clearRect(70,40,160,70);
+
+       //線條
+    //    context.beginPath();
+    //    context.moveTo(100,150);
+    //    context.lineTo(250,75);
+    //    context.lineTo(125,30);
+    // //    context.lineTo(100,150);
+    // context.closePath();
+    //    context.stroke();
+    //    context.fill();
+
+    //弧 or 圓
+    //context.moveTo(150,100);
+    //context.arc(150,100,75,1 * Math.PI, 1.5 * Math.PI, false);
+    // context.arc(150,100,75,0 * Math.PI, 2 * Math.PI, false);
+    //context.stroke();
+    //context.fill();
+
+    //圖
+    // var imageObject = new Image();
+    // imageObject.src = "../images/Cars1.jpg";
+    // imageObject.addEventListener('load',function(){
+    //     context.drawImage(imageObject,0,0);
+    //     context.drawImage(imageObject,0,0,200,150);
+    //     context.drawImage(imageObject,195,86,188,188,0,0,94,94)
+    // })
+
+    //字
+       context.font = "48px arial";
+       context.textAlign = "center";
+       //context.fillText("Hello Canvas!!",canvas.width/2,canvas.height/2);
+       context.strokeText("Hello Canvas!!",canvas.width/2,canvas.height/2);
+
     </script>
 </body>
-
 </html>

@@ -32,17 +32,58 @@
 </head>
 <body>
     <div class="zone">
-        <div id="item1" class="item">Item1</div>
-        <div id="item2" class="item">Item2</div>        
-        <div id="item3" class="item">Item3</div>
+        <div id="item1" class="item" draggable="true">Item1</div>
+        <div id="item2" class="item" draggable="true">Item2</div>        
+        <div id="item3" class="item" draggable="true">Item3</div>
     </div>
     <div class="zone"></div>
- 
+    <a href="http://www.iiiedu.org.tw" id="a1">iiiedu</a>
     <script>
         var items = document.querySelectorAll('.item'); 
         var zones = document.querySelectorAll('.zone');
+        
+        for(var i=0,max=items.length;i<max;i++){
+            items[i].addEventListener('dragstart',dragstartHandler);
+        }
+        function dragstartHandler(event){
+            console.log(event.target.id)
+            event.dataTransfer.setData('text/plain',event.target.id);
+        }
+        for(var i=0,max=zones.length;i<max;i++){
+            zones[i].addEventListener('dragover',dragoverHandler);
+            zones[i].addEventListener('drop',dropHandler);
+        }
 
-       
+        function dragoverHandler(event){
+            event.preventDefault();
+        }
+        function dropHandler(evnet){
+            event.preventDefault();
+            event.stopPropagation();
+
+            var id = event.dataTransfer.getData('text/plain')
+            var item = document.querySelector('#' + id)
+            //移動
+            //event.target.appendChild(item);
+            //複製
+            event.target.appendChild(item.cloneNode(true));
+            //<input type="text" name=""/>
+            // if(id==="item1"){
+            //     var eleInput = document.createElement("input")
+            //     eleInput.setAttribute("type","text");
+            //     eleInput.setAttribute("name","input1");
+            //     event.target.appendChild(eleInput)
+            // }
+        }
+
+
+
+       document.querySelector('#a1').addEventListener('click',function(event){
+          if(!window.confirm("真的要離開嗎?")){
+                event.preventDefault();
+          }
+           
+       })
     </script>
 </body>
 </html>

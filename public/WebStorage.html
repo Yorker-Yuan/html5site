@@ -20,18 +20,27 @@
 
        btn1.addEventListener('click',function(){
          //將資料存到Storage中
+         localStorage.setItem("local1",txt1.value)
+         sessionStorage.setItem("session1",txt2.value)
        })
        btn2.addEventListener('click',function(){
           //從Storage中讀取資料
+         console.log(localStorage.getItem("local1"));
        })
 
        //讀取所有localStorage中的資料
-      
+     // console.log(localStorage.length);
+     var keyname = ""
+      for(var i=0,max=localStorage.length;i<max;i++){
+         keyname = localStorage.key(i);
+        console.log(localStorage.getItem(keyname));
+      }
 
     //刪除一筆localStorage中的資料
-    
+    //localStorage.removeItem("local1")
 
     //刪除所有localStorage的資料
+    //localStorage.clear();
 
       
 

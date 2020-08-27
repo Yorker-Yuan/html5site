@@ -12,7 +12,7 @@
     color:<input type="color" id="color1" /><br>
     range:<input type="range" id="range1" /><span id="span2"></span><br>
     number:<input type="number" value="20" min="20" max="80" step="5"  /><br>
-    email:<input type="email" name="email" autocomplete="off" multiple /><br>
+    email:<input type="email" name="email" autocomplete="off" multiple/><br>
     url:<input type="url" list="list1" /><br>
     tel:<input type="tel" /><br>
     search:<input type="search" /><br>
@@ -36,16 +36,23 @@
   <details>
       <summary>前端技術</summary>
       <ul>
-          <li contenteditable="true" data-hours="12hrs" data-price="4800">HTML</li>
+          <!-- data-* -->
+          <li data-hours="12hrs" data-price="4800">HTML</li>
           <li contenteditable="true">CSS</li>
           <li>JavaScript</li>
           <li>jQuery</li>
       </ul>
   </details>
-  <h2>小編的話</h2>
-
+  <h1>HTML5 Site</h1>
+  <button id="button1">Dialog</button>
+  <dialog id="dialog1">
+      <p>Hello Dialog</p>
+      <form>
+        <button>Close</button>
+      </form>
+  </dialog>
     <script>
-        document.designMode = "on";
+     document.designMode = "on"
     //要找到控制的對象
     //決定什麼時候 > 使用者的行為(事件) 離開的行為 blur  內容改變 change
     //改變內容或樣式
@@ -66,6 +73,7 @@
     })
 
     var theLi = document.querySelector('details>ul>li:first-child');
+
     //data-*
     //data-hours data-price
     console.log(theLi.dataset.hours)
@@ -73,7 +81,10 @@
 
     //jQuery
     //$('..').data('hours')
-    
+    var theDialog = document.querySelector('#dialog1');
+    document.querySelector('#button1').addEventListener('click',function(){
+        theDialog.showModal();
+    })
     </script>
 </body>
 </html>
