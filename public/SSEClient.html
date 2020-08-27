@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <h2 id="h2">SSE Client</h2>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
-        <script>
-            let theH = document.querySelector("#h2");
-            let client = new EventSource('/api/sse');
-            client.addEventListener('message',(e)=>{
-                theH.innerHTML = moment().format('h:mm:ss a');  //時間格式化
-            });
-        </script>
-    </body>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h2 id="h2">SSE Client</h2>
+    <input type="button" value="Start" id="button1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
+    <script>
+        var theH = document.querySelector('#h2')
+        var btn = document.querySelector('#button1')
+        var client = "";
+        btn.addEventListener('click', function () {
+            if (btn.value == "Start") {
+                btn.value = "Stop"
+                //Server Sent Events
+                client = new EventSource('/api/sse');
+                //預設是 message
+                client.addEventListener('abc', function (event) {
+                    theH.innerHTML = moment(event.data).format('h:mm:ss');
+                })
+            } else {
+                client.close();
+                btn.value = "Start"
+            }
+
+        })
+
+
+    </script>
+
+</body>
+
 </html>

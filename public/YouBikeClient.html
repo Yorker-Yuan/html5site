@@ -11,7 +11,7 @@
     <script>
        document.querySelector('#button1').addEventListener("click",function(){
            //todo1：建立EventSource物件，與 Server Sent Event Server ('/events')建立連線
-          let source = new EventSource('/api/youbike');
+          var source = new EventSource('/api/youbike')
         if(this.value == "啟動"){
             this.value = "停止";
             //todo2：連線成功會引發什麼事件，將______換成適當的事件

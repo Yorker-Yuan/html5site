@@ -34,6 +34,7 @@ router.get('/jsonhandler', function (req, res, next) {
   res.json(jsonData);
 })
 
+// http://localhost:3000/api/sse
 router.get('/sse', function (req, res, next) {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
@@ -41,16 +42,17 @@ router.get('/sse', function (req, res, next) {
     'Connection': 'keep-alive'
   });
   setInterval(function () {
-    constructSSE(res, (new Date()).toLocaleTimeString());
+    constructSSE(res, (new Date()).toString());
   }, 1000)
  
-  constructSSE(res, (new Date()).toLocaleTimeString());
+  constructSSE(res, (new Date()).toString());
 })
 
 function constructSSE(res, data) { 
+  res.write("event: abc\n");
   res.write("data: " + data + '\n\n');
 }
-
+// http://localhost:3000/api/youbike
 router.get('/youbike', function (req, res, next) {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',

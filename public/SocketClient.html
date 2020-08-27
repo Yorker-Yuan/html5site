@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Socket Client</title>
+    <title>WebSocket Client</title>
 </head>
 <body>
     <h2 id="h2"></h2>
 
     <script>
-        let theH = document.querySelector('#h2');
-        let client = new WebSocket('ws//echo.websocket.org/');
+        var theH = document.querySelector('#h2')
+        //step1 連線到 WebSocket Server
+        var client = new WebSocket('ws://echo.websocket.org/')
 
-        // step1: 連線成功會觸發open事件
-        client.addEventListener('open',()=>{
-            theH.innerHTML = "連線成功";
-            // step2: 發送資料
-            client.send("Hello World");
-        });
-        
-        // step3: 接收socket server 回傳的資料
-        client.addEventListener('message',(e)=>{
-            theH.innerHTML += "資料來自socket server" + e.data;
-            // 關閉連線
+        //連線成功會觸發open事件
+        client.addEventListener('open',function(){
+            theH.innerHTML = "連線成功<br>"
+            //step2 發送資料
+            client.send("Hello WebSocket From III")
+   
+        })
+        //step3 接收Socket Server傳過來的資料
+        client.addEventListener('message',function(event){
+            theH.innerHTML += "資料來自Socket Server：" + event.data + "<br>";
+            //關閉連線
             client.close();
         })
-        // step4: 連線關閉會觸發close事件
-        client.addEventListener('close',()=>{
-            theH.innerHTML += "連線關閉";
-        });
+        //連線關閉會觸發close事件
+        client.addEventListener('close',function(){
+            theH.innerHTML += "連線關閉<br>"
+        })
     </script>
 </body>
 </html>

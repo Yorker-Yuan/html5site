@@ -1,14 +1,13 @@
 ﻿//https://www.npmjs.com/package/websocket
 //https://gist.github.com/martinsik/2031681
 
-//建立web socket連線
+//建立WebSocket Server
 var WebSocketServer = require('websocket').server,
     http = require('http'),
     clients = [],  //記錄所有連線的client
     users = [];    //記錄所有連線的使用者
 
-var server = http.createServer(function (request, response) {
-    
+var server = http.createServer(function (request, response) {    
 });
 
 server.listen(8080, function () {
@@ -19,28 +18,27 @@ wsServer = new WebSocketServer({
     httpServer: server,
 });
 
-//處理每一次連線
+
+
+//每個連線都會觸發request事件
 wsServer.on('request', function (request) {   
-    //儲存每次連線
+    //記錄每一個連線
     var connection = request.accept(null, request.origin);
-    clients.push(connection);
     console.log((new Date()) + ' Connection accepted.');
     //console.log(connection);
     clients.push(connection);
 
     var userName = "guest"
         index = 0;
-    //接收使用者傳來訊息
+
+        //接收使用者送過來的資料
     connection.on('message', function (message) {
         //console.log('Received Message: ' + message.utf8Data);
 
          var data = JSON.parse(message.utf8Data);
-         //sql server
-
+         //mysql sqlserver
+         
          var json = "";
-        // var json = {
-        //     time:(new Date()).getTime().text:data['message']
-        // }
         if(data["name"] != null){
             userName = data["name"]; 
             console.log((new Date()) + userName + " 登入");

@@ -48,16 +48,21 @@
     </div>
 
     <script>
-        //建立websocket事件
-        let client = new WebSocket('ws://localhost:8080');
+
+        //建立WebSocket物件
+        var client = new WebSocket('ws://192.168.140.64:8080');
+
         //message事件
-        client.addEventListener('message', (e) => {
+        client.addEventListener('message', function (event) {
             var data = JSON.parse(event.data);
             var eleP = document.createElement("p");
             var txtP = document.createTextNode(data.name + "@" + formatTime(new Date(data.time)) + ":" + data.text);
             eleP.appendChild(txtP);
             document.querySelector("#messageList").appendChild(eleP);
-        });
+        })
+
+
+
 
         document.querySelector("#buttonLogin").addEventListener("click", function () {
             var userName = document.querySelector("#userName");
@@ -66,17 +71,15 @@
             var name = userName.value;
             document.querySelector("#spnUserName").innerHTML = " " + name;
 
-            //將姓名發送到SocketServer    
+            //將姓名發送到SocketServer    JSON.stringify({name:name})
             client.send(JSON.stringify({name:name}));
-
         })
 
         document.querySelector("#buttonSend").addEventListener("click", function () {
             var message = document.querySelector("#message").value;
 
-            //將訊息發送到SocketServer    
+            //將訊息發送到SocketServer    JSON.stringify({ message: message })
             client.send(JSON.stringify({ message: message }));
-
         })
 
         function formatTime(dt) {

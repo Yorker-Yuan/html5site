@@ -18,6 +18,12 @@
         margin: 10px;
         box-shadow: 3px 2px 4px silver;
       }
+      .c1{
+
+      }
+      .c2{
+
+      }
     </style>
   </head>
   <body>
@@ -27,10 +33,9 @@
       //產生FileObject有兩種方法
       //第一種使用檔案選取元件
       document.querySelector("#file1").addEventListener("change", function() {
-        for(let i = 0,max=this.files.length;i<max;i++)
-        {
-          files(this.files[i]);
-        }
+         for(var i=0,max=this.files.length;i<max;i++){
+           fileInfo(this.files[i])
+         }
       });
 
        //第二種從檔案總管拖曳進來的檔案
@@ -41,29 +46,30 @@
       theZone.addEventListener("drop", function(event) {
         event.preventDefault();
         event.stopPropagation();
-
-        for(let i = 0,max=event.dataTransfer.files.length;i<max;i++)
-        {
-          fileInfo(event.dataTransfer.files[i]);
-        }
+        for(var i=0,max=event.dataTransfer.files.length;i<max;i++){
+           fileInfo(event.dataTransfer.files[i])
+         }
+        
       });
 
-      function fileInfo(theFile) {
-        
+      function fileInfo(theFile) {        
         //讀取圖片內容
-        let reader = new FileReader();
-        //<img>
+        var reader = new FileReader();
         reader.readAsDataURL(theFile);
-        reader.addEventListener('load',(e)=>{
-          let elImg = document.createElement('img');
-          //<img src="">
-          elImg.setAttribute('src',e.target.result);
-          //<img class="thumb">
-          elImg.classList.add('thumb');
+        reader.addEventListener('load',function(event){
+          //<img>
+          var eleImg = document.createElement("img")
+          //<img src="a.jpg">
+          eleImg.setAttribute('src',event.target.result)
+          //<img src="a.jpg" class="thumb">
+          eleImg.classList.add('thumb');
 
-          //將圖加到網頁上
-          theZone.appendChild(elImg);
-        });
+          //將圖片加到網頁上
+          theZone.appendChild(eleImg);
+
+
+        })
+        
       }
 
      
