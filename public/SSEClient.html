@@ -6,6 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h2>SSE Client</h2>
+        <h2 id="h2">SSE Client</h2>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
+        <script>
+            let theH = document.querySelector("#h2");
+            let client = new EventSource('/api/sse');
+            client.addEventListener('message',(e)=>{
+                theH.innerHTML = moment().format('h:mm:ss a');  //時間格式化
+            });
+        </script>
     </body>
 </html>

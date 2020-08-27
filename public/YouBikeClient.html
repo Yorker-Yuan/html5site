@@ -11,15 +11,15 @@
     <script>
        document.querySelector('#button1').addEventListener("click",function(){
            //todo1：建立EventSource物件，與 Server Sent Event Server ('/events')建立連線
-          
+          let source = new EventSource('/api/youbike');
         if(this.value == "啟動"){
             this.value = "停止";
             //todo2：連線成功會引發什麼事件，將______換成適當的事件
-            source.addEventListener('______', function (e) {
+            source.addEventListener('open', function (e) {
                document.getElementById('content').innerHTML += '已連線..<br/>';
             });
             //todo3：接收Server傳回來的結果，要使用甚麼事件，將______換成適當的事件
-                source.addEventListener('_____', function (e) {
+                source.addEventListener('message', function (e) {
                     var data = JSON.parse(e.data);
                     var msg = "";
                     msg += "<b>站名 :</b> " + data.retVal["0001"].sna;
@@ -32,7 +32,7 @@
                this.value = "啟動";
                document.getElementById('content').innerHTML += '停止連線..<br/>';
                //todo4 要關閉跟Server Sent Event Server 的連線，要呼叫什麼方法?
-               
+               source.close();
            }
        })
 

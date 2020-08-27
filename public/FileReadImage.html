@@ -27,7 +27,10 @@
       //產生FileObject有兩種方法
       //第一種使用檔案選取元件
       document.querySelector("#file1").addEventListener("change", function() {
-        
+        for(let i = 0,max=this.files.length;i<max;i++)
+        {
+          files(this.files[i]);
+        }
       });
 
        //第二種從檔案總管拖曳進來的檔案
@@ -39,13 +42,28 @@
         event.preventDefault();
         event.stopPropagation();
 
-        
+        for(let i = 0,max=event.dataTransfer.files.length;i<max;i++)
+        {
+          fileInfo(event.dataTransfer.files[i]);
+        }
       });
 
       function fileInfo(theFile) {
         
         //讀取圖片內容
-        
+        let reader = new FileReader();
+        //<img>
+        reader.readAsDataURL(theFile);
+        reader.addEventListener('load',(e)=>{
+          let elImg = document.createElement('img');
+          //<img src="">
+          elImg.setAttribute('src',e.target.result);
+          //<img class="thumb">
+          elImg.classList.add('thumb');
+
+          //將圖加到網頁上
+          theZone.appendChild(elImg);
+        });
       }
 
      

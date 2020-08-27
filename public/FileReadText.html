@@ -22,7 +22,7 @@
         //產生FileObject有兩種方法
         //第一種使用檔案選取元件
        document.querySelector('#file1').addEventListener('change',function(){
-           
+           fileInfo(this.files[0]);
        })
        //第二種從檔案總管拖曳進來的檔案
        var theZone = document.querySelector('#zone1');
@@ -34,13 +34,18 @@
            event.preventDefault();
            event.stopPropagation();
 
-         
+         fileInfo(event.dataTransfer.files[0]);
        })
 
        function fileInfo(theFile){
         
         //讀取檔案內容
-        
+        let reader = new FileReader();
+        reader.addEventListener('load',(e)=>{
+            // theZone.innerHTML = e.target.result;
+            theZone.textContent = e.target.result;
+        })
+        reader.readAsText(theFile,"UTF-8");
        }
 
 

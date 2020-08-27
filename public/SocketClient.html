@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Socket Client</title>
+</head>
+<body>
+    <h2 id="h2"></h2>
+
+    <script>
+        let theH = document.querySelector('#h2');
+        let client = new WebSocket('ws//echo.websocket.org/');
+
+        // step1: 連線成功會觸發open事件
+        client.addEventListener('open',()=>{
+            theH.innerHTML = "連線成功";
+            // step2: 發送資料
+            client.send("Hello World");
+        });
+        
+        // step3: 接收socket server 回傳的資料
+        client.addEventListener('message',(e)=>{
+            theH.innerHTML += "資料來自socket server" + e.data;
+            // 關閉連線
+            client.close();
+        })
+        // step4: 連線關閉會觸發close事件
+        client.addEventListener('close',()=>{
+            theH.innerHTML += "連線關閉";
+        });
+    </script>
+</body>
+</html>
