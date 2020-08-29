@@ -70,16 +70,18 @@
             var btnRemove = document.getElementById("removeAllNote");
             btnRemove.addEventListener("click", function () {
                 //加入清除所有localStorage的程式,使用clear方法
-                __________________________;  //請將 "_______" 換成正確的程式
+                localStorage.clear();  //請將 "_______" 換成正確的程式
                 location.reload();
 
             }, false);
 
             //寫個迴圈讀出localStorage中的key及value資料,並將此資料傳給addNote(key,value)方法
-            for (var i = 0; i < _____________; i++) {  //請將 "_______" 換成正確的程式，取得localstoage上有幾筆資料;
-                var key = __________________;                //請將 "_______" 換成正確的程式，以index取得key名稱;
+            for (var i = 0; i < localStorage.length ; i++) {  
+                //請將 "_______" 換成正確的程式，取得localstoage上有幾筆資料;
+                var key = localStorage.key(i);                
+                //請將 "_______" 換成正確的程式，以index取得key名稱;
                 if (key.substr(0, 4) == "note") {
-                    var value = _________________;        //請將 "_______" 換成正確的程式，使用getItem()取得key的值;
+                    var value = localStorage.getItem(key);        //請將 "_______" 換成正確的程式，使用getItem()取得key的值;
                     addNote(key, value);
                 }
             }
@@ -166,9 +168,10 @@
         function save(key) {
             var obj = document.getElementById(key);
             var value = obj.childNodes[1].firstChild.nodeValue;
+
             if (value.length > 0) {
                 //將使用者輸入的內容,使用setItem的方法存到localStorage中
-                __________________________;  //請將 "_______" 換成正確的程式;
+                localStorage.setItem(key,value);  //請將 "_______" 換成正確的程式;
             }
 
         }
@@ -176,7 +179,7 @@
             var obj = document.getElementById(key);
             obj.parentNode.removeChild(obj);
             //使用removeItem的方法,刪除某一筆localStorage中的資料
-           _______________________________;  //請將 "_______" 換成正確的程式;
+           localStorage.removeItem(key);  //請將 "_______" 換成正確的程式;
         }
 
         //移動便利貼
@@ -216,7 +219,7 @@
     <input type="button" value="新增便利貼" id="addNote"/>
     <input type="button" value="清除所有便利貼" id="removeAllNote">
     <hr />
-   <!-- <div class="note" id="note_1">
+<!-- <div class="note" id="note_1">
         <div class="noteTitle">
             <img src="../images/icon-add.png" alt="add" class="addIcon" onclick="addNote()" />
             <img src="../images/icon-delete.png" alt="delete" class="delIcon" onclick="deleteNote('note_1')" />

@@ -18,12 +18,6 @@
         margin: 10px;
         box-shadow: 3px 2px 4px silver;
       }
-      .c1{
-
-      }
-      .c2{
-
-      }
     </style>
   </head>
   <body>
@@ -33,46 +27,83 @@
       //產生FileObject有兩種方法
       //第一種使用檔案選取元件
       document.querySelector("#file1").addEventListener("change", function() {
-         for(var i=0,max=this.files.length;i<max;i++){
-           fileInfo(this.files[i])
-         }
+        //console.log(this.files)
+        //FileList
+        //fileInfo(this.files[0]) //this.files[0]就是File Object
+        for (var i = 0, max = this.files.length; i < max; i++) {
+          fileInfo(this.files[i]);
+          //把檔案加到陣列中
+          //再把陣列中的資料傳給fileInfo
+        }
       });
 
-       //第二種從檔案總管拖曳進來的檔案
-       var theZone = document.querySelector("#zone1");
+      function fileInfo(theFile) {
+        //    console.log(theFile.name); //檔案名稱
+        //    console.log(theFile.type); //檔案類型
+        //    console.log(theFile.size); //檔案大小
+        //    console.log(theFile.lastModifiedDate) //校正日期
+
+        //檔案上傳
+        var formData = new FormData();
+        formData.append("myFile", theFile);
+
+        //ajax
+        // var xhr = new XMLHttpRequest();
+        // //xhr.open('HTTP Method','Server端的程式')
+        // xhr.addEventListener("load", function() {
+        //   //xhr.responseText 會得到伺服器回傳的結果
+        //   console.log(xhr.responseText);
+        // });
+        // xhr.open("POST", "/api/upload");
+        // xhr.send(formData);
+
+        //fetch()
+        fetch("/api/upload", {
+          method: "POST",
+          body: formData
+        })
+          .then(function(data) {
+            console.log(data);
+            return data.json();
+          })
+          .then(function(data) {
+            console.log(data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+
+        //讀取檔案內容
+        var reader = new FileReader();
+        reader.readAsDataURL(theFile);
+        reader.addEventListener("load", function(event) {
+          //<img src=".." class="thumb" />
+          //event.target.result;
+          var eleImg = document.createElement("img");
+          eleImg.setAttribute("src", event.target.result);
+          eleImg.classList.add("thumb");
+
+          theZone.appendChild(eleImg);
+        });
+      }
+
+      //第二種從檔案總管拖曳進來的檔案
+      var theZone = document.querySelector("#zone1");
       theZone.addEventListener("dragover", function(event) {
         event.preventDefault();
       });
       theZone.addEventListener("drop", function(event) {
         event.preventDefault();
         event.stopPropagation();
-        for(var i=0,max=event.dataTransfer.files.length;i<max;i++){
-           fileInfo(event.dataTransfer.files[i])
-         }
-        
+
+        //fileInfo(event.dataTransfer.files[0])
+        //event.dataTransfer.files[0]就是File Object
+        for (var i = 0, max = event.dataTransfer.files.length; i < max; i++) {
+          fileInfo(event.dataTransfer.files[i]);
+          //把檔案加到陣列中
+          //再把陣列中的資料傳給fileInfo
+        }
       });
-
-      function fileInfo(theFile) {        
-        //讀取圖片內容
-        var reader = new FileReader();
-        reader.readAsDataURL(theFile);
-        reader.addEventListener('load',function(event){
-          //<img>
-          var eleImg = document.createElement("img")
-          //<img src="a.jpg">
-          eleImg.setAttribute('src',event.target.result)
-          //<img src="a.jpg" class="thumb">
-          eleImg.classList.add('thumb');
-
-          //將圖片加到網頁上
-          theZone.appendChild(eleImg);
-
-
-        })
-        
-      }
-
-     
     </script>
   </body>
 </html>

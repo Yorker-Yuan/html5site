@@ -1,7 +1,9 @@
-var cache_name = "v1"
+var cache_name = "v3"
 var url_files = [
     '/MyApp',
-    '/MyApp/Main.html'
+    '/MyApp/Main.html',
+    '/MyApp/main.css',
+    '/MyApp/main.js'
 ]
 //儲存檔案到Cache Storage中
 self.addEventListener('install',function(event){
@@ -18,9 +20,24 @@ self.addEventListener('install',function(event){
 //有沒有在CacheStorage中
 //如果有直接回傳，沒有就透過Ajax方法去Server上取回來
 self.addEventListener('fetch',function(event){
+   // console.log(event.request)
     event.respondWith(
         caches.match(event.request).then(function(response){
             return response || fetch(event.request)
+        })
+    )
+})
+
+//管理Cache Storage
+//將舊的Cache刪除，保留新的Cache
+self.addEventListener("activate",function(event){
+    event.waitUntil(
+        caches.keys().then(function(names){
+            Promise.all(names.map(function(name){
+                if(name != cache_name){
+                    return caches.delete(name);
+                }
+            }))
         })
     )
 })
